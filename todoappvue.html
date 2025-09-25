@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>My Vue Todo App</h1>
+        <input type="text" v-model="newTask"/>
+        <button id="addtask" v-on:click="add">Add Task</button>
+        <ul id="listitems">
+         </ul>
+        
+          </div>
+         <script>
+            let app = new Vue({
+                el:'#app',
+                data:{newTask:''},
+                methods:{
+                    add:function(){
+                        let newitem = document.createElement("li")
+                        newitem.innerText = app.newTask;
+                        let tasklist = document.getElementById("listitems")
+                        tasklist.appendChild(newitem)
+                        app.newTask = ''
+                    }
+                }
+            })
+         </script>
+
+   
+</body>
+</html>

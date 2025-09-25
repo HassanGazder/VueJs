@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My Todo List</h1>
+    <input type="text" id="newTask"/>
+    <input type="button" id="addtask" value="Add Task"/>
+    <ul id="listitems"></ul>
+
+    <script>
+        let addbutton = document.getElementById("addtask")
+        let tasklist = document.getElementById("listitems")
+
+        addbutton.onclick = function (){
+            let taskfield = document.getElementById("newTask")
+            let taskitem = document.createElement("li")
+            taskitem.innerText = taskfield.value;
+            tasklist.appendChild(taskitem)
+            taskfield.value = ""
+        }
+    </script>
+</body>
+</html>
