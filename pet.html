@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h1 v-text="sitename"></h1>
+        <h2 v-text="lesson.subject"></h2>
+        <p v-text="lesson.location"></p>
+        <p v-text="lesson.price"></p>
+
+    </div>
+
+    <script>
+        let afterschool = new Vue({
+            el:'#app',
+            data:{sitename:'After School App',
+                lesson:{
+                    subject:"math",
+                    location:"london",
+                    price:2000,
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

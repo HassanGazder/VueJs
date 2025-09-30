@@ -16,6 +16,9 @@
         
           </div>
          <script>
+             let deletebutton = document.createElement("button")
+             deletebutton.innerText = "Delete"
+             deletebutton.setAttribute("v-on:click","deleteItem")
             let app = new Vue({
                 el:'#app',
                 data:{newTask:''},
@@ -25,9 +28,15 @@
                         newitem.innerText = app.newTask;
                         let tasklist = document.getElementById("listitems")
                         tasklist.appendChild(newitem)
+                        tasklist.appendChild(deletebutton)
                         app.newTask = ''
-                    }
+                    },
+                    deleteItem:function(event){
+                        console.log("delete button")
+                        event.target.previousSibling.remove()
+                        event.target.remove()
                 }
+            }
             })
          </script>
 
