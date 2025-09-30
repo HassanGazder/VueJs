@@ -3,43 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vue Todo App - Fixed</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
 </head>
 <body>
     <div id="app">
         <h1>My Vue Todo App</h1>
-        <input type="text" v-model="newTask"/>
-        <button id="addtask" v-on:click="add">Add Task</button>
-        <ul id="listitems">
-         </ul>
-        
-          </div>
-         <script>
-             let deletebutton = document.createElement("button")
-             deletebutton.innerText = "Delete"
-             deletebutton.setAttribute("v-on:click","deleteItem")
-            let app = new Vue({
-                el:'#app',
-                data:{newTask:''},
-                methods:{
-                    add:function(){
-                        let newitem = document.createElement("li")
-                        newitem.innerText = app.newTask;
-                        let tasklist = document.getElementById("listitems")
-                        tasklist.appendChild(newitem)
-                        tasklist.appendChild(deletebutton)
-                        app.newTask = ''
-                    },
-                    deleteItem:function(event){
-                        console.log("delete button")
-                        event.target.previousSibling.remove()
-                        event.target.remove()
+        <input type="text" v-model="newTask" @keyup.enter="addTask"/>
+        <button @click="addTask">Add Task</button>
+        <ul>
+            <li v-for="(task, index) in tasks" :key="index">
+                {{ task }}
+                <button @click="deleteTask(index)">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newTask: '',
+                tasks: []
+            },
+            methods: {
+                addTask: function() {
+                    if (this.newTask.trim() !== '') {
+                        this.tasks.push(this.newTask);
+                        this.newTask = '';
+                    }
+                },
+                deleteTask: function(index) {
+                    this.tasks.splice(index, 1);
                 }
             }
-            })
-         </script>
-
-   
+        });
+    </script>
 </body>
 </html>
