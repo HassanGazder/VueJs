@@ -5,16 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+.addtocart{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    height: 30px;
+    width: 100px;
+    border: none;
+}
+</style>
 </head>
 <body>
     <div id="app">
         <header>
-            <h1 v-text="sitename"></h1>
-            <img v-bind:src="product.image">
-            <h1 v-text="product.title"></h1>
-            <p v-text="product.description"></p>
+            <button v-on:click="showCheckout">
+                {{cartItemCount}}
+                <span class="fa-solid fa-cart-shopping"></span>CheckOut
+            </button>
         </header>
+        <main>
+             <div v-if='showProduct'>
+            <h1 v-text="sitename"></h1>
+            <h1 v-text="product.title"></h1>
+            <img width="20%" height="200px" v-bind:src="product.image">
+            <p v-text="product.description"></p>
+            <p v-text="product.availableInventory"></p>
+            <button class="addtocart" v-on:click="addtocart" v-if="canAddToCart">add to cart</button>
+            <button disabled='disabled' v-else>add to cart</button>
+             </div>
+
+             <div v-else>
+                <h2>Checkout</h2>
+             </div>
+        </main>
+
+       
     </div>
 
     <script type="text/javascript">
@@ -26,7 +53,31 @@
                     title: "Cat Food, 25lb bag",
                     description: "a 25 pound bag of",
                     price:2000,
-                    image:'3542.webp'
+                    image:'img.png',
+                    availableInventory:5
+                },
+                cart:[],
+                showProduct: true
+            },
+            methods:{
+                addtocart:function(){
+                    this.cart.push(this.product.id)
+                    console.log(this.cart)
+                    this.product.availableInventory
+                    console.log(this.product.availableInventory)
+                },
+                showCheckout(){
+                this.showProduct = this.showProduct ? false : true
+            },
+            },
+            computed:{
+                cartItemCount(){
+                   return this.cart.length;
+                    console.log(this.cart.length)
+                },
+                canAddToCart(){
+                    return this.product.availableInventory > this.cartItemCount;
+                    console.log(this.product.availableInventory > this.cartItemCount)
                 }
             }
         })
