@@ -29,7 +29,7 @@
              <div v-if='showProduct'>
             <h1 v-text="sitename"></h1>
             <h1 v-text="product.title"></h1>
-            <img width="20%" height="200px" v-bind:src="product.image">
+            <!-- <img width="20%" height="200px" v-bind:src="product.image"> -->
             <p v-text="product.description"></p>
             <p v-text="product.availableInventory"></p>
             <button class="addtocart" v-on:click="addtocart" v-if="canAddToCart">add to cart</button>
@@ -85,8 +85,15 @@
                 <p>Gift: {{order.gift}}</p>
                 <p>Method: 
                     {{order.method}}</p>
+                    <h1>Cart</h1>
+                       <ul>
+                        <li v-for="(item,index) in cart" :key="index">
+                            {{item.id}}
+                            {{item.title}}
+                            <button v-on:click="deleteitem">delete</button>
+                        </li>
+                       </ul>
                 <button v-on:click="submitForm">Place Order</button>
-
 
              </div>
         </main>
@@ -103,7 +110,7 @@
                     title: "Cat Food, 25lb bag",
                     description: "a 25 pound bag of",
                     price:2000,
-                    image:'img.png',
+                    // image:'img.png',
                     availableInventory:5
                 },
                 cart:[],
@@ -130,7 +137,10 @@
             },
             methods:{
                 addtocart:function(){
-                    this.cart.push(this.product.id)
+                    this.cart.push({
+                        id:this.product.id,
+                        title:this.product.title
+                    })
                     console.log(this.cart)
                     this.product.availableInventory
                     console.log(this.product.availableInventory)
@@ -140,6 +150,11 @@
             },
             submitForm(){
                 alert('Submitted')
+            },
+            deleteitem:function(){
+                this.cart.splice(0,1)
+                console.log(this.cart);
+                
             }
             },
             computed:{
